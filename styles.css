@@ -181,7 +181,7 @@ img {
     gap: 15px;
 }
 
-.btn-donate {
+.btn-login {
     background: var(--gradient-primary);
     color: var(--white);
     border: none;
@@ -194,7 +194,7 @@ img {
     box-shadow: 0 4px 15px rgba(230, 57, 70, 0.3);
 }
 
-.btn-donate:hover {
+.btn-login:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 25px rgba(230, 57, 70, 0.4);
 }
@@ -220,8 +220,8 @@ img {
    ======================================== */
 .sos-container {
     position: fixed;
-    bottom: 30px;
-    right: 30px;
+    bottom: 36px;
+    right: 20px;
     z-index: 999;
 }
 
@@ -229,14 +229,14 @@ img {
     background: var(--gradient-primary);
     color: var(--white);
     border: none;
-    padding: 18px 30px;
+    padding: 18px 20px;
     border-radius: 50px;
     font-weight: 700;
     font-size: 14px;
     cursor: pointer;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 7px;
     box-shadow: 0 8px 30px rgba(230, 57, 70, 0.5);
     animation: pulse 2s infinite;
     transition: var(--transition);
@@ -1249,6 +1249,7 @@ img {
     padding-left: 5px;
 }
 
+
 .footer-newsletter h4 {
     font-size: 18px;
     font-weight: 700;
@@ -1311,6 +1312,7 @@ img {
 .footer-bottom-links {
     display: flex;
     gap: 30px;
+    margin-top: 2rem;
 }
 
 .footer-bottom-links a {
@@ -1638,7 +1640,7 @@ img {
         padding: 14px 22px;
         font-size: 13px;
     }
-    
+   /* responsive none */
     .sos-btn span {
         display: none;
     }
