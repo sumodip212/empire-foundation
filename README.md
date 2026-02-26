@@ -36,6 +36,3 @@ Feel free to contribute in any way you see fit ?
 This project is open source and available under the MIT License.
 
 ---
-
-**THE EMPIRE FOUNDATION**  
-Building a better tomorrow, together.
