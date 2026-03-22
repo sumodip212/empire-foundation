@@ -4,7 +4,7 @@
  */
 
 // API Base URL - uses relative path since frontend is served by the same server
-const API_BASE = '';
+const API_BASE = 'http://localhost:5000';
 
 // ========================================
 // DOM Elements
@@ -384,7 +384,7 @@ async function sendSOS(type) {
         // Get user location (mock for now)
         const location = 'Location tracking...';
         
-        const response = await fetch(`${API_BASE}/api/emergency/sos`, {
+        const response = await fetch(`${API_BASE}/api/sos`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
