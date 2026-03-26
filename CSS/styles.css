@@ -27,7 +27,8 @@
     --border-radius-lg: 24px;
 }
 
-html,body{
+html,
+body {
     overflow-x: hidden;
     width: 100%;
 }
@@ -77,6 +78,7 @@ section {
     width: 100%;
     overflow-x: hidden;
 }
+
 /* ========================================
    Navigation
    ======================================== */
@@ -241,6 +243,7 @@ section {
 .hamburger.active span:nth-child(3) {
     transform: rotate(-45deg) translate(5px, -6px);
 }
+
 /* ========================================
    Emergency SOS Button
    ======================================== */
@@ -278,9 +281,12 @@ section {
 }
 
 @keyframes pulse {
-    0%, 100% {
+
+    0%,
+    100% {
         box-shadow: 0 8px 30px rgba(230, 57, 70, 0.5);
     }
+
     50% {
         box-shadow: 0 8px 40px rgba(230, 57, 70, 0.8);
     }
@@ -541,9 +547,12 @@ section {
 }
 
 @keyframes float {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: translateY(0);
     }
+
     50% {
         transform: translateY(-20px);
     }
@@ -554,6 +563,7 @@ section {
         opacity: 0;
         transform: translateY(30px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -595,10 +605,13 @@ section {
 }
 
 @keyframes scroll {
-    0%, 100% {
+
+    0%,
+    100% {
         opacity: 1;
         top: 8px;
     }
+
     50% {
         opacity: 0.5;
         top: 20px;
@@ -1013,15 +1026,30 @@ section {
     gap: 20px;
 }
 
+/*buttons*/
+
+.btn,
+button {
+    text-align: center;
+    justify-content: center;
+    font-family: 'Poppins', sans-serif;
+}
+
+
 /* ========================================
    Contact Section
    ======================================== */
 .contact {
+    display: flex;
+    justify-content: center;
     padding: 100px 0;
     background: var(--white);
 }
 
 .contact-content {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
     display: grid;
     grid-template-columns: 1fr 1.2fr;
     gap: 60px;
@@ -1031,6 +1059,7 @@ section {
     display: flex;
     flex-direction: column;
     gap: 30px;
+    width: 100%;
 }
 
 .contact-item {
@@ -1063,6 +1092,10 @@ section {
     color: var(--white);
 }
 
+.contact-details {
+    width: 100%;
+}
+
 .contact-details h4 {
     font-size: 18px;
     font-weight: 700;
@@ -1071,6 +1104,8 @@ section {
 }
 
 .contact-details p {
+    word-break: break-word;
+    overflow-wrap: break-word;
     font-size: 15px;
     color: var(--gray);
     line-height: 1.6;
@@ -1113,6 +1148,8 @@ section {
     padding: 40px;
     border-radius: 24px;
     box-shadow: var(--shadow);
+    width: 100%;
+    margin: 0 auto;
 }
 
 .form-group {
@@ -1151,7 +1188,7 @@ section {
     background: transparent;
 }
 
-.form-group textarea + label {
+.form-group textarea+label {
     top: 20px;
     transform: none;
 }
@@ -1164,10 +1201,10 @@ section {
     background: var(--white);
 }
 
-.form-group input:focus + label,
-.form-group input:not(:placeholder-shown) + label,
-.form-group textarea:focus + label,
-.form-group textarea:not(:placeholder-shown) + label {
+.form-group input:focus+label,
+.form-group input:not(:placeholder-shown)+label,
+.form-group textarea:focus+label,
+.form-group textarea:not(:placeholder-shown)+label {
     top: 0;
     left: 15px;
     font-size: 12px;
@@ -1204,7 +1241,7 @@ section {
     grid-template-columns: 1.5fr 1fr 1fr 1.5fr;
     gap: 50px;
     padding-bottom: 60px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);    
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     width: 100%;
 }
 
@@ -1376,8 +1413,13 @@ section {
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 .modal-content {
@@ -1391,11 +1433,12 @@ section {
 }
 
 @keyframes slideUp {
-    from { 
+    from {
         opacity: 0;
         transform: translateY(50px);
     }
-    to { 
+
+    to {
         opacity: 1;
         transform: translateY(0);
     }
@@ -1520,9 +1563,11 @@ section {
 .emergency-info strong {
     color: var(--primary-color);
 }
-.developer:hover{
+
+.developer:hover {
     color: hsl(25, 82%, 61%);
 }
+
 /* ========================================
    Responsive Design
    ======================================== */
@@ -1633,21 +1678,47 @@ section {
     .hero-buttons .btn {
         width: 100%;
         justify-content: center;
+        padding: 12px 20px;
+        /* was 16px 32px */
+        font-size: 13px;
+    }
+
+    .btn-login {
+        padding: 8px 20px;
+        /* reduced */
+        font-size: 13px;
+        /* smaller text */
     }
 
     .services-grid {
         grid-template-columns: 1fr;
     }
+
     .service-card {
         width: 100%;
         max-width: 100%;
     }
+
     .impact-stats {
         grid-template-columns: 1fr;
     }
 
-    .cta-buttons {
-        flex-direction: column;
+    .cta-buttons .btn {
+        padding: 10px 18px;
+        /* compact like GET IN TOUCH */
+        font-size: 12px;
+        border-radius: 25px;
+        width: auto;
+        /* IMPORTANT (remove full width) */
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+   .cta-buttons {
+        display: flex;
+        flex-direction: column-reverse;
+        align-items: center;
         gap: 10px;
     }
 
@@ -1668,42 +1739,50 @@ section {
         margin-bottom: 40px;
     }
 
+    .contact-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+    }
+
+    .contact-info,
     .contact-form {
-        padding: 25px;
+        width: 100%;
     }
 
     /* SOS Modal Mobile Fix */
 
-.emergency-actions {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-}
+    .emergency-actions {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
 
-.emergency-btn {
-    padding: 12px;
-}
+    .emergency-btn {
+        padding: 12px;
+    }
 
-.emergency-btn i {
-    font-size: 20px;
-}
+    .emergency-btn i {
+        font-size: 20px;
+    }
 
-.emergency-btn span {
-    font-size: 12px;
-}
+    .emergency-btn span {
+        font-size: 12px;
+    }
 
-/* reduce modal size */
-.modal-content {
-    padding: 20px;
-    width: 90%;
-}
+    /* reduce modal size */
+    .modal-content {
+        padding: 20px;
+        width: 90%;
+    }
 
-.emergency-alert h2 {
-    font-size: 18px;
-}
+    .emergency-alert h2 {
+        font-size: 18px;
+    }
 
-.emergency-alert p {
-    font-size: 13px;
-}
+    .emergency-alert p {
+        font-size: 13px;
+    }
 }
 
 /* ========================= */
