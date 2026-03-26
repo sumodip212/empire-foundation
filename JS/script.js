@@ -4,7 +4,7 @@
  */
 
 // API Base URL - uses relative path since frontend is served by the same server
-const API_BASE = '';
+const API_BASE = 'http://localhost:5000';
 
 // ========================================
 // DOM Elements
@@ -381,37 +381,47 @@ async function loadStats() {
 // ========================================
 async function sendSOS(type) {
     try {
-        // Get user location (mock for now)
-        const location = 'Location tracking...';
-        
-        const response = await fetch(`${API_BASE}/api/emergency/sos`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                name: 'User',
-                phone: '+91 98765 43210',
-                location: location,
-                type: type,
-                message: `Emergency: ${type} assistance needed`
-            })
+        navigator.geolocation.getCurrentPosition(async (position) => {
+
+            const lat = position.coords.latitude;
+            const lng = position.coords.longitude;
+            const location = `${lat},${lng}`;
+
+            const name = localStorage.getItem('userName') || 'Guest';
+            const phone = localStorage.getItem('userPhone') || 'Not provided';
+
+            const response = await fetch(`${API_BASE}/api/sos`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    name: name,
+                    phone: phone,
+                    location: location,
+                    type: type,
+                    message: `Emergency: ${type} assistance needed`
+                })
+            });
+
+            const data = await response.json();
+            
+            if (data.success) {
+                showAlert('success', `${data.message} (Alert ID: ${data.alertId})`);
+                
+                const emergencyModal = document.getElementById('emergencyModal');
+                if (emergencyModal) {
+                    emergencyModal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            } else {
+                showAlert('error', 'Failed to send SOS. Please call emergency services directly.');
+            }
+
+        }, () => {
+            showAlert('error', 'Location access denied');
         });
 
-        const data = await response.json();
-        
-        if (data.success) {
-            showAlert('success', `${data.message} (Alert ID: ${data.alertId})`);
-            
-            // Close modal after successful SOS
-            const emergencyModal = document.getElementById('emergencyModal');
-            if (emergencyModal) {
-                emergencyModal.classList.remove('active');
-                document.body.style.overflow = 'auto';
-            }
-        } else {
-            showAlert('error', 'Failed to send SOS. Please call emergency services directly.');
-        }
     } catch (error) {
         console.error('SOS Error:', error);
         showAlert('error', 'Failed to send SOS. Please call emergency services directly.');

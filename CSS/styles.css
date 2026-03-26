@@ -205,6 +205,7 @@ img {
     gap: 5px;
     cursor: pointer;
     padding: 10px;
+    /* position:relative; */
 }
 
 .hamburger span {
@@ -213,8 +214,22 @@ img {
     background: var(--dark-color);
     border-radius: 3px;
     transition: var(--transition);
+    /* position: relative; */
 }
 
+/* Hamburger to X animation */
+
+.hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 6px);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -6px);
+}
 /* ========================================
    Emergency SOS Button
    ======================================== */
@@ -1497,189 +1512,215 @@ img {
 /* ========================================
    Responsive Design
    ======================================== */
+/* ========================================
+   Responsive Fix (Clean + No Design Change)
+   ======================================== */
+
 @media (max-width: 1200px) {
     .hero-title {
-        font-size: 52px;
+        font-size: 48px;
     }
-    
+
     .services-grid {
         grid-template-columns: repeat(2, 1fr);
     }
-    
+
     .impact-stats {
         grid-template-columns: repeat(3, 1fr);
     }
-    
-    .footer-content {
-        grid-template-columns: repeat(2, 1fr);
-    }
 }
 
+/* ========================= */
+
 @media (max-width: 992px) {
+
     .nav-menu {
         position: fixed;
         top: 0;
         right: -100%;
-        width: 80%;
-        max-width: 350px;
+        width: 75%;
         height: 100vh;
         background: var(--white);
         flex-direction: column;
         justify-content: center;
+        align-items: center;
         gap: 25px;
-        box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
         transition: var(--transition);
     }
-    
+
     .nav-menu.active {
         right: 0;
     }
-    
+
     .hamburger {
         display: flex;
-        z-index: 1001;
     }
-    
-    .hamburger.active span:nth-child(1) {
-        transform: rotate(45deg) translate(5px, 6px);
-    }
-    
-    .hamburger.active span:nth-child(2) {
-        opacity: 0;
-    }
-    
-    .hamburger.active span:nth-child(3) {
-        transform: rotate(-45deg) translate(5px, -6px);
-    }
-    
+
+    /* HERO FIX */
     .hero {
         flex-direction: column;
+        padding: 100px 20px 50px;
         text-align: center;
-        padding: 120px 20px 60px;
     }
-    
-    .hero-content {
-        max-width: 100%;
-    }
-    
-    .hero-description {
-        max-width: 100%;
-    }
-    
+
     .hero-buttons {
         justify-content: center;
+        flex-wrap: wrap;
     }
-    
+
     .hero-stats {
+        flex-wrap: wrap;
         justify-content: center;
+        gap: 20px;
     }
-    
+
     .hero-visual {
         display: none;
     }
-    
+
+    /* ABOUT */
     .about-content {
         grid-template-columns: 1fr;
-        gap: 50px;
+        gap: 40px;
     }
-    
-    .about-image {
-        order: -1;
-    }
-    
+
+    /* CONTACT */
     .contact-content {
         grid-template-columns: 1fr;
     }
-    
+
+    /* IMPACT */
     .impact-stats {
         grid-template-columns: repeat(2, 1fr);
     }
 }
 
+/* ========================= */
+
 @media (max-width: 768px) {
+
     .section-title {
-        font-size: 36px;
+        font-size: 32px;
     }
-    
+
     .hero-title {
-        font-size: 38px;
+        font-size: 34px;
     }
-    
-    .hero-stats {
-        flex-wrap: wrap;
-        gap: 30px;
+
+    .hero-description {
+        font-size: 16px;
     }
-    
-    .services-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .impact-stats {
-        grid-template-columns: 1fr;
-    }
-    
-    .cta-buttons {
+
+    .hero-buttons {
         flex-direction: column;
         align-items: center;
     }
-    
+
+    .hero-buttons .btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .impact-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .cta-buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+
     .footer-content {
         grid-template-columns: 1fr;
     }
-    
-    .footer-bottom {
-        display: flex;
-        flex-direction: column;
-        align-items: start;
-        text-align: center;
-        gap: 5px;
 
+    .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
     }
-    
-    .sos-container {
-        bottom: 20px;
-        right: 20px;
+
+    /* FIX spacing issue */
+    .section-header {
+        margin-bottom: 40px;
     }
-    .sos-container.move-up{
-        bottom: 120px;
+
+    .contact-form {
+        padding: 25px;
     }
-    .sos-btn {
-        padding: 14px 22px;
-        font-size: 13px;
-    }
-   /* responsive none */
-    .sos-btn span {
-        display: none;
-    }
+
+    /* SOS Modal Mobile Fix */
+
+.emergency-actions {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
 }
 
+.emergency-btn {
+    padding: 12px;
+}
+
+.emergency-btn i {
+    font-size: 20px;
+}
+
+.emergency-btn span {
+    font-size: 12px;
+}
+
+/* reduce modal size */
+.modal-content {
+    padding: 20px;
+    width: 90%;
+}
+
+.emergency-alert h2 {
+    font-size: 18px;
+}
+
+.emergency-alert p {
+    font-size: 13px;
+}
+}
+
+/* ========================= */
+
 @media (max-width: 480px) {
+
     .container {
-        padding: 0 15px;
+        padding: 0 12px;
     }
-    
+
     .nav-container {
-        padding: 15px 20px;
+        padding: 12px 15px;
     }
-    
-    .btn {
-        padding: 14px 24px;
-        font-size: 14px;
+
+    .hero {
+        padding: 90px 15px 40px;
     }
-    
+
     .hero-title {
-        font-size: 32px;
-    }
-    
-    .stat-number {
         font-size: 28px;
     }
-    
+
+    .stat-number {
+        font-size: 24px;
+    }
+
+    .btn {
+        padding: 12px 18px;
+        font-size: 13px;
+    }
+
     .about-features {
         grid-template-columns: 1fr;
     }
-    
-    .contact-form {
-        padding: 25px;
+
+    .sos-btn span {
+        display: none;
     }
 }

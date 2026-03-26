@@ -1,0 +1,158 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #000;
+  color: #e5e5e5;
+  font-family: system-ui;
+  padding: 15px;
+}
+
+.container {
+  max-width: 1000px;
+  margin: auto;
+}
+
+/* HEADER */
+header {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+h1 {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+/* NAV */
+.nav-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.nav-links a {
+  padding: 6px 12px;
+  border-radius: 6px;
+  text-decoration: none;
+  color: #aaa;
+  background: #111;
+  font-size: 13px;
+}
+
+.nav-links a.active {
+  background: #222;
+  color: #fff;
+}
+
+/* STATS */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.stat-card {
+  background: #111;
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.stat-number {
+  font-size: 22px;
+  color: #fff;
+}
+
+.stat-label {
+  font-size: 11px;
+  color: #777;
+}
+
+/* SECTION */
+.data-section {
+  background: #111;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+button {
+  background: #222;
+  border: none;
+  padding: 6px 10px;
+  color: #ccc;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* TABLE */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+
+th {
+  text-align: left;
+  padding: 8px;
+  color: #666;
+}
+
+td {
+  padding: 8px;
+  border-top: 1px solid #222;
+}
+
+tr:hover {
+  background: #111;
+}
+
+/* STATUS */
+.status-pending {
+  color: #facc15;
+}
+
+.status-resolved {
+  color: #22c55e;
+}
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+/* BACK BUTTON */
+.back-link {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  padding: 8px 14px;
+  background: #111;
+  border-radius: 20px;
+  color: #ccc;
+  text-decoration: none;
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  table {
+    font-size: 10px;
+  }
+}
