@@ -285,6 +285,91 @@ function showTab(tabName) {
 //     document.getElementById('bloodCount').textContent = data.data.bloodDonors;
 //   }
 // }
+
+// ---------- VOLUNTEER ----------
+
+async function loadVolunteers() {
+  const container = document.getElementById('volunteersTable');
+
+  try {
+    const res = await fetch('http://localhost:5000/api/volunteer');
+    const result = await res.json();
+
+    const data = result.volunteers;
+
+    if (result.success && data.length > 0) {
+      let html = `
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>City</th>
+              <th>Why Join</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+      `;
+
+      data.forEach(v => {
+        html += `
+          <tr>
+            <td>${v.name}</td>
+            <td>${v.email}</td>
+            <td>${v.phone}</td>
+            <td>${v.city}</td>
+            <td>${v.whyJoin || '-'}</td>
+            <td style="color:${
+              v.status === 'pending' ? 'orange' :
+              v.status === 'approved' ? 'green' : 'red'
+            }">
+              ${v.status}
+            </td>
+            <td>
+              ${
+                v.status === 'pending'
+                ? `
+                  <button onclick="approveVolunteer('${v._id}')">Approve</button>
+                  <button onclick="rejectVolunteer('${v._id}')">Reject</button>
+                  `
+                : '✔'
+              }
+            </td>
+          </tr>
+        `;
+      });
+
+      html += `</tbody></table>`;
+      container.innerHTML = html;
+
+    } else {
+      container.innerHTML = "No volunteers yet";
+    }
+
+  } catch (err) {
+    console.error(err);
+    container.innerHTML = "Error loading volunteers";
+  }
+}
+
+async function approveVolunteer(id) {
+  await fetch(`http://localhost:5000/api/volunteer/${id}/approve`, {
+    method: 'PATCH'
+  });
+  loadVolunteers();
+}
+
+async function rejectVolunteer(id) {
+  await fetch(`http://localhost:5000/api/volunteer/${id}/reject`, {
+    method: 'PATCH'
+  });
+  loadVolunteers();
+}
+
+// ---------- NEWSLETTER ----------
 async function loadNewsletter() {
   const res = await fetch(`${API_BASE}/api/newsletter`);
   const data = await res.json();
@@ -331,7 +416,7 @@ let html = `<table><thead>
 <th>Name</th>
 <th>Email</th>
 <th>Phone</th>
-<th>Interest</th>
+
 <th>Message</th>
 <th>Date</th>
 </tr>
@@ -342,7 +427,7 @@ data.data.forEach(c => {
     <td>${c.name}</td>
     <td>${c.email}</td>
     <td>${c.phone || '-'}</td>
-    <td>${c.interest || '-'}</td>
+    
     <td>${c.message}</td>
     <td>${new Date(c.createdAt).toLocaleString()}</td>
   </tr>`;

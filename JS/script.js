@@ -22,6 +22,51 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // ========================================
+// volunteer
+// ========================================
+
+const volunteerForm = document.getElementById("volunteerForm");
+
+if (volunteerForm) {
+  volunteerForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const data = {
+      name: document.getElementById("v_name").value,
+      email: document.getElementById("v_email").value,
+      phone: document.getElementById("v_phone").value,
+      city: document.getElementById("v_city").value,
+      whyJoin: document.getElementById("v_whyJoin").value,
+    };
+
+    try {
+      const res = await fetch("http://localhost:5000/api/volunteer/apply", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      const result = await res.json();
+      const msg = document.getElementById("volunteerMsg");
+
+      if (result.success) {
+        msg.style.color = "green";
+        msg.innerText = result.message;
+        volunteerForm.reset();
+      } else {
+        msg.style.color = "red";
+        msg.innerText = result.message;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  });
+}
+
+
+// ========================================
 // Navigation
 // ========================================
 function initNavigation() {
@@ -172,7 +217,7 @@ function initContactForm() {
                 name: document.getElementById('name').value,
                 email: document.getElementById('email').value,
                 phone: document.getElementById('phone').value,
-                interest: document.getElementById('interest').value,
+                // interest: document.getElementById('interest').value,
                 message: document.getElementById('message').value
             };
 

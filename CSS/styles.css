@@ -1783,6 +1783,12 @@ button {
     .emergency-alert p {
         font-size: 13px;
     }
+
+    /* Hide back button on mobile */
+    .back-btn {
+        display: none !important;
+    }
+
 }
 
 /* ========================= */
