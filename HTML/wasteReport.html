@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report Waste | Empire Foundation</title>
+
+    <link rel="stylesheet" href="../CSS/styles.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <a href="../index.html"><i class="fas fa-hands-helping"></i></a>
+                </div>
+                <div class="logo-text">
+                    <span class="logo-main">EMPIRE</span>
+                    <span class="logo-sub">FOUNDATION</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="contact" style="padding-top:60px; min-height:100vh; display:flex; align-items:center;">
+        <div class="container"
+            style="display:flex; flex-direction:column; align-items:center; justify-content:center; width:100%;">
+
+            <div class="section-header" style="text-align:center; margin-bottom:6px;">
+                <span class="section-tag" style="font-size:11px; padding:3px 10px; margin-top:36px;">Civic Report</span>
+                <h2 class="section-title" style="font-size:22px; margin-bottom:3px;">
+                    Report <span class="highlight">Waste Issue</span>
+                </h2>
+                <p class="section-subtitle" style="font-size:12px; margin:0;">
+                    Help us keep the community clean
+                </p>
+            </div>
+
+            <div class="contact-form" style="max-width:380px; width:100%; padding:18px 20px; box-sizing:border-box;">
+
+                <form id="wasteForm">
+
+                    <div class="file-upload-wrapper" style="margin-bottom:10px;">
+                        <label for="wasteImage" class="custom-file-upload">
+                            <i class="fas fa-camera"></i>
+                            Capture Waste Image
+                        </label>
+
+                        <input type="file" id="wasteImage" name="image" accept="image/*"  required
+                            style="display:none;">
+                    </div>
+
+                    <div class="form-group" style="margin-bottom:10px;">
+                        <input type="text" id="wasteLocation" required>
+                        <label>Location / Address</label>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom:10px;">
+                        <select id="issueType">
+                            <option value="">Select Issue Type</option>
+                            <option>Garbage Dump</option>
+                            <option>Drainage Issue</option>
+                            <option>Broken Road</option>
+                            <option>Street Light</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom:10px;">
+                        <textarea id="wasteDescription" style="height:65px;"></textarea>
+                        <label>Description (Optional)</label>
+                    </div>
+                    <!-- gps -->
+                    <input type="hidden" id="wasteLatitude">
+                    <input type="hidden" id="wasteLongitude">
+                    <button type="submit" class="btn btn-primary" style="width:100%; padding:10px; font-size:13px;">
+                        <i class="fas fa-paper-plane"></i>
+                        Submit Report
+                    </button>
+
+                </form>
+                <p id="wasteMsg" style="margin-top: 15px; text-align: center; min-height:20px; font-size: 13px;"></p>
+
+
+            </div>
+
+        </div>
+    </section>
+
+    <script src="../JS/script.js"></script>
+
+</body>
+
+</html>

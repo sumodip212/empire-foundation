@@ -881,6 +881,8 @@ section {
     cursor: pointer;
     transition: var(--transition);
     width: 100%;
+    display: block;
+    text-align: center;
 }
 
 .service-btn:hover {
@@ -1562,6 +1564,29 @@ button {
 
 .developer:hover {
     color: hsl(25, 82%, 61%);
+}
+/* ========================================
+   Waste file upload
+   ======================================== */
+.custom-file-upload {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 18px;
+    border: 2px dashed var(--primary-color);
+    border-radius: 12px;
+    background: #fff5f5;
+    color: var(--primary-color);
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.custom-file-upload:hover {
+    background: var(--primary-color);
+    color: white;
 }
 
 /* ========================================
