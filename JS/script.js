@@ -40,7 +40,7 @@ if (volunteerForm) {
     };
 
     try {
-      const res = await fetch("http://localhost:5000/api/volunteer/apply", {
+      const res = await fetch(`${API_BASE}/api/volunteer/apply`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -75,6 +75,14 @@ function initNavigation() {
     const navMenu = document.getElementById('navMenu');
 
     // Scroll effect
+    // window.addEventListener('scroll', () => {
+    //     if (window.scrollY > 50) {
+    //         navbar.classList.add('scrolled');
+    //     } else {
+    //         navbar.classList.remove('scrolled');
+    //     }
+    // });
+    if (navbar) {
     window.addEventListener('scroll', () => {
         if (window.scrollY > 50) {
             navbar.classList.add('scrolled');
@@ -82,6 +90,7 @@ function initNavigation() {
             navbar.classList.remove('scrolled');
         }
     });
+}
 
     // Mobile menu toggle
     if (hamburger) {
@@ -187,22 +196,39 @@ function initEmergencyModal() {
 
 
 // ========moveup bottom sos=============
+// const sosContainer = document.querySelector(".sos-container");
+// const footer = document.querySelector(".footer");
+
+// window.addEventListener("scroll", () => {
+
+//     const footerRect = footer.getBoundingClientRect();
+//     const windowHeight = window.innerHeight;
+
+//     if (footerRect.top < windowHeight) {
+//         const overlap = windowHeight - footerRect.top;
+//         sosContainer.style.bottom = overlap + 20 + "px";
+//     } else {
+//         sosContainer.style.bottom = "20px";
+//     }
+
+// });
+
 const sosContainer = document.querySelector(".sos-container");
 const footer = document.querySelector(".footer");
 
-window.addEventListener("scroll", () => {
+if (sosContainer && footer) {
+    window.addEventListener("scroll", () => {
+        const footerRect = footer.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
 
-    const footerRect = footer.getBoundingClientRect();
-    const windowHeight = window.innerHeight;
-
-    if (footerRect.top < windowHeight) {
-        const overlap = windowHeight - footerRect.top;
-        sosContainer.style.bottom = overlap + 20 + "px";
-    } else {
-        sosContainer.style.bottom = "20px";
-    }
-
-});
+        if (footerRect.top < windowHeight) {
+            const overlap = windowHeight - footerRect.top;
+            sosContainer.style.bottom = overlap + 20 + "px";
+        } else {
+            sosContainer.style.bottom = "20px";
+        }
+    });
+}
 // ========================================
 // Contact Form
 // ========================================
@@ -617,6 +643,70 @@ async function getEmergencyContacts() {
         return { success: false, data: [] };
     }
 }
+
+
+//Waste location 
+const wasteForm = document.getElementById("wasteForm");
+
+if (wasteForm && navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+        (position) => {
+            document.getElementById("wasteLatitude").value = position.coords.latitude;
+            document.getElementById("wasteLongitude").value = position.coords.longitude;
+        },
+        (error) => {
+            console.log("Location permission denied");
+        }
+    );
+}
+
+
+if (wasteForm) {
+  wasteForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const msg = document.getElementById('wasteMsg');
+    const formData = new FormData();
+
+    formData.append('image', document.getElementById('wasteImage').files[0]);
+    formData.append('address', document.getElementById('wasteLocation').value);
+    formData.append('latitude', document.getElementById('wasteLatitude').value);
+    formData.append('longitude', document.getElementById('wasteLongitude').value);
+    formData.append('issueType', document.getElementById('issueType').value);
+    formData.append('description', document.getElementById('wasteDescription').value);
+
+    try {
+      const response = await fetch(`${API_BASE}/api/waste`, {
+        method: 'POST',
+        body: formData
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        msg.style.color = 'green';
+        msg.innerText = 'Waste report submitted successfully!';
+        setTimeout(() => {
+            msg.innerText = '';
+        }, 3000);
+        
+      }
+    else {
+        msg.style.color = 'red';
+        msg.innerText = data.message;
+      }
+
+    } catch (error) {
+      console.error(error);
+      msg.style.color = 'red';
+      msg.innerText = 'Failed to submit waste report';
+      setTimeout(() => {
+            msg.innerText = '';
+      }, 4000);
+    }
+  });
+}
+
 
 // ========================================
 // Export for use in console (debugging)

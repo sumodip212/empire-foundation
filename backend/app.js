@@ -7,6 +7,9 @@ const rateLimit = require('express-rate-limit');
 const contactRoutes = require('./routes/contactRoutes');
 const newsletterRoutes = require('./routes/newsletterRoutes');
 const sosRoutes = require('./routes/sosRoutes');
+const volunteerRoutes = require('./routes/volunteerRoutes');
+const wasteRoutes = require('./routes/wasteRoutes');
+
 
 const app = express();
 
@@ -30,7 +33,10 @@ app.use(morgan('dev'));
 app.use('/api/contact', contactRoutes);
 app.use('/api/newsletter', newsletterRoutes);
 app.use('/api/sos', sosRoutes);
-
+app.use('/api/volunteer', volunteerRoutes);
+app.use('/api/waste', wasteRoutes)
+//for upload img
+app.use('/uploads', express.static('uploads'));
 
 // test route
 app.get('/', (req, res) => {

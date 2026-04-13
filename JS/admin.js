@@ -2,23 +2,23 @@
 //         function showTab(tabName) {
 //             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
 //             document.querySelectorAll('.nav-links a').forEach(link => link.classList.remove('active'));
-            
+
 //             document.getElementById(tabName).classList.add('active');
 //             event.target.classList.add('active');
-            
+
 //             // Load data for the tab
 //             if (tabName === 'volunteers') loadVolunteers();
 //             else if (tabName === 'contacts') loadContacts();
 //             else if (tabName === 'newsletter') loadNewsletter();
 //             else if (tabName === 'blood') loadBloodDonors();
 //         }
-        
+
 //         // Load stats
 //         async function loadStats() {
 //             try {
 //                 const response = await fetch('/api/stats');
 //                 const result = await response.json();
-                
+
 //                 if (result.success) {
 //                     document.getElementById('volunteerCount').textContent = result.data.volunteers || 0;
 //                     document.getElementById('contactCount').textContent = result.data.contacts || 0;
@@ -29,15 +29,15 @@
 //                 console.error('Error loading stats:', error);
 //             }
 //         }
-        
+
 //         // Load volunteers
 //         async function loadVolunteers() {
 //             const container = document.getElementById('volunteersTable');
-            
+
 //             try {
 //                 const response = await fetch('/api/volunteers');
 //                 const result = await response.json();
-                
+
 //                 if (result.success && result.data.length > 0) {
 //                     let html = `
 //                         <table>
@@ -55,7 +55,7 @@
 //                             </thead>
 //                             <tbody>
 //                     `;
-                    
+
 //                     result.data.forEach(volunteer => {
 //                         html += `
 //                             <tr>
@@ -74,7 +74,7 @@
 //                             </tr>
 //                         `;
 //                     });
-                    
+
 //                     html += '</tbody></table>';
 //                     container.innerHTML = html;
 //                 } else {
@@ -90,15 +90,15 @@
 //                 container.innerHTML = '<div class="empty-state">Error loading volunteers</div>';
 //             }
 //         }
-        
+
 //         // Load contacts
 //         async function loadContacts() {
 //             const container = document.getElementById('contactsTable');
-            
+
 //             try {
 //                 const response = await fetch('/api/contact');
 //                 const result = await response.json();
-                
+
 //                 if (result.success && result.data.length > 0) {
 //                     let html = `
 //                         <table>
@@ -115,7 +115,7 @@
 //                             </thead>
 //                             <tbody>
 //                     `;
-                    
+
 //                     result.data.forEach(contact => {
 //                         html += `
 //                             <tr>
@@ -129,7 +129,7 @@
 //                             </tr>
 //                         `;
 //                     });
-                    
+
 //                     html += '</tbody></table>';
 //                     container.innerHTML = html;
 //                 } else {
@@ -145,19 +145,19 @@
 //                 container.innerHTML = '<div class="empty-state">Error loading contacts</div>';
 //             }
 //         }
-        
+
 //         // Load newsletter
 //         async function loadNewsletter() {
 //             const container = document.getElementById('newsletterTable');
-            
+
 //             try {
 //                 const response = await fetch('/api/newsletter');
 //                 const result = await response.json();
-                
+
 //                 // Since GET /api/newsletter might not exist, we'll try to get from subscribers
 //                 const statsResponse = await fetch('/api/stats');
 //                 const stats = await statsResponse.json();
-                
+
 //                 if (stats.success && stats.data.subscribers > 0) {
 //                     // Read subscribers.json directly via a workaround
 //                     // Since no direct API, we'll show stats
@@ -181,15 +181,15 @@
 //                 container.innerHTML = '<div class="empty-state">Error loading newsletter</div>';
 //             }
 //         }
-        
+
 //         // Load blood donors
 //         async function loadBloodDonors() {
 //             const container = document.getElementById('bloodTable');
-            
+
 //             try {
 //                 const response = await fetch('/api/blood-donors');
 //                 const result = await response.json();
-                
+
 //                 if (result.success && result.data.length > 0) {
 //                     let html = `
 //                         <table>
@@ -207,7 +207,7 @@
 //                             </thead>
 //                             <tbody>
 //                     `;
-                    
+
 //                     result.data.forEach(donor => {
 //                         html += `
 //                             <tr>
@@ -226,7 +226,7 @@
 //                             </tr>
 //                         `;
 //                     });
-                    
+
 //                     html += '</tbody></table>';
 //                     container.innerHTML = html;
 //                 } else {
@@ -242,7 +242,7 @@
 //                 container.innerHTML = '<div class="empty-state">Error loading blood donors</div>';
 //             }
 //         }
-        
+
 //         // Initial load
 //         loadStats();
 //         loadVolunteers();
@@ -271,6 +271,7 @@ function showTab(tabName) {
   else if (tabName === 'newsletter') loadNewsletter();
   else if (tabName === 'blood') loadBloodDonors();
   else if (tabName === 'sos') loadSOS();
+  else if (tabName === 'waste') loadWasteReports();
 }
 
 // ---------- STATS ----------
@@ -322,21 +323,19 @@ async function loadVolunteers() {
             <td>${v.phone}</td>
             <td>${v.city}</td>
             <td>${v.whyJoin || '-'}</td>
-            <td style="color:${
-              v.status === 'pending' ? 'orange' :
-              v.status === 'approved' ? 'green' : 'red'
-            }">
+            <td style="color:${v.status === 'pending' ? 'orange' :
+            v.status === 'approved' ? 'green' : 'red'
+          }">
               ${v.status}
             </td>
             <td>
-              ${
-                v.status === 'pending'
-                ? `
+              ${v.status === 'pending'
+            ? `
                   <button onclick="approveVolunteer('${v._id}')">Approve</button>
                   <button onclick="rejectVolunteer('${v._id}')">Reject</button>
                   `
-                : '✔'
-              }
+            : '✔'
+          }
             </td>
           </tr>
         `;
@@ -370,12 +369,13 @@ async function rejectVolunteer(id) {
 }
 
 // ---------- NEWSLETTER ----------
+
 async function loadNewsletter() {
   const res = await fetch(`${API_BASE}/api/newsletter`);
   const data = await res.json();
 
   const container = document.getElementById('newsletterTable');
-  container.innerHTML = '';  
+  container.innerHTML = '';
   let html = `<table><thead>
   <tr><th>Email</th><th>Date</th></tr>
   </thead><tbody>`;
@@ -392,26 +392,27 @@ async function loadNewsletter() {
   container.innerHTML = html;
 }
 // ---------- CONTACT ----------
+
 async function loadContacts() {
   const res = await fetch(`${API_BASE}/api/contact`);
   const data = await res.json();
 
   const container = document.getElementById('contactsTable');
 
-//   let html = `<table><thead>
-//   <tr><th>Name</th><th>Email</th><th>Message</th></tr>
-//   </thead><tbody>`;
+  //   let html = `<table><thead>
+  //   <tr><th>Name</th><th>Email</th><th>Message</th></tr>
+  //   </thead><tbody>`;
 
-//   data.data.forEach(c => {
-//     html += `<tr>
-//       <td>${c.name}</td>
-//       <td>${c.email}</td>
-//       <td>${c.message}</td>
-//     </tr>`;
-//   });
-container.innerHTML = '';
+  //   data.data.forEach(c => {
+  //     html += `<tr>
+  //       <td>${c.name}</td>
+  //       <td>${c.email}</td>
+  //       <td>${c.message}</td>
+  //     </tr>`;
+  //   });
+  container.innerHTML = '';
 
-let html = `<table><thead>
+  let html = `<table><thead>
 <tr>
 <th>Name</th>
 <th>Email</th>
@@ -422,8 +423,8 @@ let html = `<table><thead>
 </tr>
 </thead><tbody>`;
 
-data.data.forEach(c => {
-  html += `<tr>
+  data.data.forEach(c => {
+    html += `<tr>
     <td>${c.name}</td>
     <td>${c.email}</td>
     <td>${c.phone || '-'}</td>
@@ -431,13 +432,14 @@ data.data.forEach(c => {
     <td>${c.message}</td>
     <td>${new Date(c.createdAt).toLocaleString()}</td>
   </tr>`;
-});
+  });
 
   html += `</tbody></table>`;
   container.innerHTML = html;
 }
 
 // ---------- SOS ----------
+
 async function loadSOS() {
   const res = await fetch(`${API_BASE}/api/sos`);
   const data = await res.json();
@@ -463,24 +465,22 @@ async function loadSOS() {
       <td>${item.name || '-'}</td>
       <td>${item.phone || '-'}</td>
       <td>
-        ${
-            item.location && item.location.includes(',')
-            ? `<a href="https://www.google.com/maps?q=${item.location}" target="_blank">
+        ${item.location && item.location.includes(',')
+        ? `<a href="https://www.google.com/maps?q=${item.location}" target="_blank">
                 View
              </a>`
-            : item.location
-         }
+        : item.location
+      }
       </td>
       <td style="color:${item.status === 'pending' ? 'orange' : 'green'}">
         ${item.status}
       </td>
       <td>${new Date(item.createdAt).toLocaleString()}</td>
       <td>
-        ${
-          item.status === 'pending'
-          ? `<button onclick="resolveSOS('${item._id}')">Resolve</button>`
-          : '✔'
-        }
+        ${item.status === 'pending'
+        ? `<button onclick="resolveSOS('${item._id}')">Resolve</button>`
+        : '✔'
+      }
       </td>
     </tr>`;
   });
@@ -492,6 +492,53 @@ async function loadSOS() {
 async function resolveSOS(id) {
   await fetch(`${API_BASE}/api/sos/${id}`, { method: 'PUT' });
   loadSOS();
+}
+// ---------- WASTE ----------
+
+async function loadWasteReports() {
+  const res = await fetch(`${API_BASE}/api/waste`);
+  const data = await res.json();
+
+  const container = document.getElementById('wasteTable');
+  //if nothing present show it will show
+  if (!data.data.length) {
+    container.innerHTML = "No waste reports yet";
+    return;
+  }
+  let html = `<table>
+    <thead>
+      <tr>
+        <th>Image</th>
+        <th>Issue</th>
+        <th>Address</th>
+        <th>Location</th>
+        <th>Description</th>
+        <th>Time</th>
+      </tr>
+    </thead>
+    <tbody>`;
+
+  data.data.forEach(item => {
+    html += `
+      <tr>
+        <td>
+          <a href="${API_BASE}/uploads/${item.image}" target="_blank">Open Img</a>
+        </td>
+        <td>${item.issueType}</td>
+        <td>${item.address}</td>
+        <td>
+          <a href="https://www.google.com/maps?q=${item.latitude},${item.longitude}" target="_blank">
+            View
+          </a>
+        </td>
+        <td>${item.description || '-'}</td>
+        <td>${new Date(item.createdAt).toLocaleString()}</td>
+      </tr>
+    `;
+  });
+
+  html += `</tbody></table>`;
+  container.innerHTML = html;
 }
 
 // ---------- INIT ----------

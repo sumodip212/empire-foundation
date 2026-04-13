@@ -21,6 +21,7 @@
     <a href="#" onclick="showTab('newsletter')">Newsletter</a>
     <a href="#" onclick="showTab('blood')">Blood</a>
     <a href="#" onclick="showTab('sos')">SOS</a>
+    <a href="#" onclick="showTab('waste')">Waste</a>
   </nav>
 </header>
 
@@ -49,6 +50,7 @@
 <div class="tab-content" id="newsletter"><div id="newsletterTable"></div></div>
 <div class="tab-content" id="blood"><div id="bloodTable"></div></div>
 
+<!-- sos tab -->
 <div class="tab-content" id="sos">
   <div class="data-section">
     <div class="section-header">
@@ -59,6 +61,16 @@
   </div>
 </div>
 
+<!-- waste tab -->
+<div class="tab-content" id="waste">
+  <div class="data-section">
+    <div class="section-header">
+      <h2>🗑 Waste Reports</h2>
+      <button onclick="loadWasteReports()">Refresh</button>
+    </div>
+    <div id="wasteTable"></div>
+  </div>
+</div>
 </div>
 
 <a href="../index.html" class="back-link">← Back to Website</a>
